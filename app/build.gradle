@@ -42,6 +42,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
     // Agregar dependencias de Firebase en esta seccion
 
     implementation 'androidx.appcompat:appcompat:1.2.0'

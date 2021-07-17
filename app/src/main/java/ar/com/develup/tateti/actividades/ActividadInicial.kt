@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ar.com.develup.tateti.R
@@ -26,10 +27,13 @@ import kotlinx.android.synthetic.main.actividad_partidas.*
 class ActividadInicial : AppCompatActivity() {
     val RC_SING_IN = 12345
     private lateinit var auth: FirebaseAuth
+    private lateinit var email: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actividad_inicial)
+
+        email=findViewById(R.id.email)
 
         iniciarSesion.setOnClickListener { iniciarSesion() }
         registrate.setOnClickListener { registrate() }
@@ -41,7 +45,7 @@ class ActividadInicial : AppCompatActivity() {
             // Si el usuario esta logueado, se redirige a la pantalla
             // de partidas
             verPartidas()
-            finish()
+
         }
         actualizarRemoteConfig()
         auth = FirebaseAuth.getInstance()
@@ -82,8 +86,8 @@ class ActividadInicial : AppCompatActivity() {
         // ya sea por codigo o por XML
         val remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 5
-            fetchTimeoutInSeconds = 10
+            minimumFetchIntervalInSeconds = 1
+            fetchTimeoutInSeconds = 1000
         }
         remoteConfig.setConfigSettingsAsync(configSettings)
 
@@ -120,11 +124,21 @@ class ActividadInicial : AppCompatActivity() {
         if (email.isEmpty()) {
             Snackbar.make(rootView!!, "Completa el email", Snackbar.LENGTH_SHORT).show()
         } else {
-            // TODO-05-AUTHENTICATION
+
             // Si completo el mail debo enviar un mail de reset
             // Para ello, utilizamos sendPasswordResetEmail con el email como parametro
             // Agregar el siguiente fragmento de codigo como CompleteListener, que notifica al usuario
             // el resultado de la operacion
+
+
+            auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Snackbar.make(rootView, "Email enviado", Snackbar.LENGTH_SHORT).show()
+                              } else {
+                                  Snackbar.make(rootView, "Error " + task.exception, Snackbar.LENGTH_SHORT).show()
+                              }
+                }
 
             //  .addOnCompleteListener { task ->
             //      if (task.isSuccessful) {
@@ -141,7 +155,7 @@ class ActividadInicial : AppCompatActivity() {
         val password = password.text.toString()
 
 
-        // TODO-05-AUTHENTICATION
+
 
 
         // Choose authentication providers
@@ -163,7 +177,7 @@ class ActividadInicial : AppCompatActivity() {
         // verPartidas()
 
 
-        // TODO-05-AUTHENTICATION
+
         // hacer signInWithEmailAndPassword con los valores ingresados de email y password
         // Agregar en addOnCompleteListener el campo authenticationListener definido mas abajo
         auth.signInWithEmailAndPassword(email, password)
@@ -172,7 +186,8 @@ class ActividadInicial : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                    //bloqueVerif()
+
+                    bloqueVerif()
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -230,11 +245,12 @@ class ActividadInicial : AppCompatActivity() {
     //    }
 
     private fun usuarioVerificoEmail(): Boolean {
-        // TODO-05-AUTHENTICATION
-        var bool = false
+
+        var bool = true
         // Preguntar al currentUser si verifico email
         val intent = intent
         val emailLink = intent.data.toString()
+
 
 // Confirm the link is a sign-in with email link.
         if (auth.isSignInWithEmailLink(emailLink)) {
@@ -247,7 +263,8 @@ class ActividadInicial : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Log.d(TAG, "Successfully signed in with email link!")
                         val result = task.result
-                        bool = true
+                        //result.user
+
                         // You can access the new user via result.getUser()
                         // Additional user info profile *not* available via:
                         // result.getAdditionalUserInfo().getProfile() == null
@@ -255,6 +272,7 @@ class ActividadInicial : AppCompatActivity() {
                         // result.getAdditionalUserInfo().isNewUser()
                     } else {
                         Log.e(TAG, "Error signing in with email link", task.exception)
+                        bool=false
                     }
                 }
         }
