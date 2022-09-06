@@ -17,34 +17,36 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="E-mail"
         android:layout_margin="16dp"
-        android:inputType="textEmailAddress"/>
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
         android:layout_margin="16dp"
-        android:inputType="textPassword"/>
+        android:hint="@string/contra"
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iniciarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Iniciar sesión"/>
+        android:text="@string/sesion"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/olvideMiContrasena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Olvidé mi contraseña"/>
+        android:text="@string/olv_contra"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registrate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrate"/>
+        android:text="@string/registro"/>
 
 </LinearLayout>

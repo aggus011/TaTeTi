@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TaTeTi</string>
+
+    <string name="sesion">Iniciar sesión</string>
+    <string name="olv_contra">Olvidé mi contraseña</string>
+    <string name="registro">Registrate</string>
+    <string name="contra">Contraseña</string>
+    <string name="email">E-mail</string>
 </resources>

@@ -33,7 +33,7 @@ class ActividadInicial : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actividad_inicial)
 
-        email=findViewById(R.id.email)
+        email = findViewById(R.id.email)
 
         iniciarSesion.setOnClickListener { iniciarSesion() }
         registrate.setOnClickListener { registrate() }
@@ -135,9 +135,10 @@ class ActividadInicial : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Snackbar.make(rootView, "Email enviado", Snackbar.LENGTH_SHORT).show()
-                              } else {
-                                  Snackbar.make(rootView, "Error " + task.exception, Snackbar.LENGTH_SHORT).show()
-                              }
+                    } else {
+                        Snackbar.make(rootView, "Error " + task.exception, Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
                 }
 
             //  .addOnCompleteListener { task ->
@@ -153,9 +154,6 @@ class ActividadInicial : AppCompatActivity() {
     private fun iniciarSesion() {
         val email = email.text.toString()
         val password = password.text.toString()
-
-
-
 
 
         // Choose authentication providers
@@ -175,7 +173,6 @@ class ActividadInicial : AppCompatActivity() {
 
         // IMPORTANTE: Eliminar  la siguiente linea cuando se implemente authentication
         // verPartidas()
-
 
 
         // hacer signInWithEmailAndPassword con los valores ingresados de email y password
@@ -217,7 +214,7 @@ class ActividadInicial : AppCompatActivity() {
     }
 
     fun bloqueVerif() {
-        if (usuarioVerificoEmail()==true) {
+        if (usuarioVerificoEmail()) {
             verPartidas()
         } else {
             desloguearse()
@@ -272,7 +269,7 @@ class ActividadInicial : AppCompatActivity() {
                         // result.getAdditionalUserInfo().isNewUser()
                     } else {
                         Log.e(TAG, "Error signing in with email link", task.exception)
-                        bool=false
+                        bool = false
                     }
                 }
         }
