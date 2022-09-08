@@ -193,13 +193,13 @@ class ActividadInicial : AppCompatActivity() {
                         baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT
                     ).show()
-                    if (task.exception is FirebaseAuthInvalidUserException) {
+                    if (task.exception is FirebaseAuthInvalidUserException)
                         Snackbar.make(rootView!!, "El usuario no existe", Snackbar.LENGTH_SHORT)
                             .show()
-                    } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                    else if (task.exception is FirebaseAuthInvalidCredentialsException)
                         Snackbar.make(rootView!!, "Credenciales inválidas", Snackbar.LENGTH_SHORT)
                             .show()
-                    }
+
                     updateUI(null)
                 }
             }
@@ -214,9 +214,9 @@ class ActividadInicial : AppCompatActivity() {
     }
 
     fun bloqueVerif() {
-        if (usuarioVerificoEmail()) {
+        if (usuarioVerificoEmail())
             verPartidas()
-        } else {
+        else {
             desloguearse()
             Snackbar.make(rootView!!, "Verifica tu email para continuar", Snackbar.LENGTH_SHORT)
                 .show()
